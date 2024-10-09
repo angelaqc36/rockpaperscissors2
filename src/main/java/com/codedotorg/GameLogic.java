@@ -1,4 +1,5 @@
 package com.codedotorg;
+import java.util.Random;
 
 public class GameLogic {
 
@@ -20,8 +21,18 @@ public class GameLogic {
      * @return a String representing the computer's choice
      */
     public String getComputerChoice() {
-        
-        return "";
+        Random rand = new Random();
+        int choice = rand.nextInt(3);
+        switch (choice) {
+            case 0:
+                return "rock";
+            case 1:
+                return "paper";
+            case 2:
+                return "scissors";
+            default:
+                return "rock";
+        }
     }
 
     /**
@@ -31,8 +42,33 @@ public class GameLogic {
      * @return A string containing the computer choice, user choice, and the result of the game.
      */
     public String determineWinner(String predictedClass, String computerChoice) {
+        if (predictedClass.equals(computerChoice)) {
+            return "Both chose " + predictedClass + ". It's a tie!";
+        }
+
+        switch (predictedClass) {
+            case "rock":
+                if (computerChoice.equals("scissors")) {
+                    return "User chose rock. Computer chose scissors. User wins!";
+                } else {
+                    return "User chose rock. Computer chose paper. Computer wins!";
+                }
+            case "paper":
+                if (computerChoice.equals("rock")) {
+                    return "User chose paper. Computer chose rock. User wins!";
+                } else {
+                    return "User chose paper. Computer chose scissors. Computer wins!";
+                }
+            case "scissors":
+                if (computerChoice.equals("paper")) {
+                    return "User chose scissors. Computer chose paper. User wins!";
+                } else {
+                    return "User chose scissors. Computer chose rock. Computer wins!";
+                }
+            default:
+                return "Invalid user choice.";
+        }
         
-        return "";
     }
 
     /**
@@ -42,8 +78,8 @@ public class GameLogic {
      * @return A string indicating a tie result.
      */
     public String getTieResult() {
-        
-        return "";
+        gameOver = true;
+        return "Both chose " + getComputerChoice() + ". It's a tie!";
     }
 
     /**
@@ -54,7 +90,8 @@ public class GameLogic {
      */
     public String getUserWinnerResult() {
         
-        return "";
+        gameOver = true;
+        return "User wins the game!";
     }
 
     /**
@@ -64,8 +101,8 @@ public class GameLogic {
      * @return A string indicating that the player has lost.
      */
     public String getComputerWinnerResult() {
-        
-        return "";
+        gameOver = true;
+        return "Computer wins the game!";
     }
 
     /**

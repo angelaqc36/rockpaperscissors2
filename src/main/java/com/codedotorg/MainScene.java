@@ -10,9 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
+import com.codedotorg.GameLogic;
 public class MainScene {
-    
+    private GameLogic gameLogic = new GameLogic();
     /** The root layout of the main scene */
     private VBox rootLayout;
 
@@ -54,12 +54,19 @@ public class MainScene {
         titleLabel = new Label("Rock, Paper, Scissors");
         titleLabel.setId("titleLabel");
 
-        computerChoiceLabel = new Label("");
-        predictionLabel = new Label("");
+        computerChoiceLabel = new Label("Computer's choice: ");
+        predictionLabel = new Label("Your choice: ");
         promptLabel = new Label("Make your choice!");
 
         cameraLoading = new Loading();  
         firstCapture = true; 
+    }
+    private void playGame(String userChoice) {
+        String computerChoice = gameLogic.getComputerChoice();
+        String result = gameLogic.determineWinner(userChoice, computerChoice);
+        computerChoiceLabel.setText("Computer's choice: " + computerChoice);
+        predictionLabel.setText("Your choice: " + userChoice);
+        promptLabel.setText("Result: "+result);
     }
 
     /**
@@ -79,7 +86,7 @@ public class MainScene {
     public Loading getLoadingAnimation() {
         return cameraLoading;
     }
-
+    
     /**
      * Creates the main screen of the game.
      * 
